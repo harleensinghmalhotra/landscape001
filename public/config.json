@@ -1,0 +1,17 @@
+{
+  "template": "bolt-vite-react-ts",
+  "siteInfo": {
+    "name": "M. Dailey Landscaping & Design",
+    "phone": "(773) 562-1366",
+    "email": "marcus@mdaileylandscaping.com",
+    "address": "Chicagoland, IL",
+    "city": "Chicagoland",
+    "state": "IL",
+    "zip": "",
+    "mapLink": "https://maps.app.goo.gl/e5f8QVjDc6MjJyYH9",
+    "hours": [
+      "Mon - Sat: By Appointment",
+      "Emergency Service Available"
+    ]
+  }
+}
