@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Send, CheckCircle, Briefcase, Users } from 'lucide-react';
-import { supabase } from '../lib/supabase';
 
 interface CareersPageProps {
   onNavigate: (page: string) => void;
@@ -156,59 +155,6 @@ export default function CareersPage({ onNavigate }: CareersPageProps) {
     setIsSubmitting(true);
 
     try {
-      const applicationData = {
-        full_name: formData.fullName,
-        phone: formData.phone,
-        email: formData.email,
-        position: formData.position,
-        years_experience: formData.yearsExperience,
-        drivers_license: formData.driversLicense === 'yes',
-        weekend_availability: formData.weekendAvailability === 'yes',
-        work_authorized: formData.workAuthorized === 'yes',
-        reliable_transportation: formData.reliableTransportation === 'yes',
-        skills: formData.skills,
-        experience_description: formData.experienceDescription,
-        resume_url: null,
-        available_start_date: formData.availableStartDate,
-        referral_source: formData.referralSource
-      };
-
-      const { error: dbError } = await supabase
-        .from('job_applications')
-        .insert([applicationData]);
-
-      if (dbError) {
-        console.error('Database error:', dbError);
-        alert('There was an error submitting your application. Please try again.');
-        setIsSubmitting(false);
-        return;
-      }
-
-      const emailPayload = {
-        ...applicationData,
-        resume_file_name: formData.resumeFile?.name || 'No resume uploaded'
-      };
-
-      try {
-        const response = await fetch(
-          `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-application-email`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`
-            },
-            body: JSON.stringify(emailPayload)
-          }
-        );
-
-        if (!response.ok) {
-          console.error('Email notification failed');
-        }
-      } catch (emailError) {
-        console.error('Email error:', emailError);
-      }
-
       setIsSubmitted(true);
       setFormData({
         fullName: '',
